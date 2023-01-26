@@ -141,47 +141,5 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 16,
   },
-  //POSIBLE MATERIAL
-  // button: {
-  //   backgroundColor: "green",
-  //   borderRadius: 20,
-  //   paddingHorizontal: 20,
-  //   justifyContent: "center",
-  //   height: 50,
-  // },
-
-  // textButton: {
-  //   textAlign: "center",
-  //   color: "#fff",
-  //   fontSize: 18,
-  //   fontWeight: "600",
-  // },
-
-  // listItem: {
-  //   flex: 1,
-  //   borderRadius: 10,
-  //   width: "90%",
-  //   backgroundColor: "white",
-  //   paddingHorizontal: 20,
-  //   shadowColor: "#000",
-  //   shadowOffset: {
-  //     width: 0,
-  //     height: 5,
-  //   },
-  //   shadowOpacity: 0.34,
-  //   shadowRadius: 6.27,
-  //   elevation: 10,
-  //   marginBottom: 30,
-  //   marginTop: 30,
-  // },
-
-  // item: {
-  //   paddingVertical: 10,
-  //   paddingHorizontal: 5,
-  //   marginTop: 20,
-  //   borderBottomColor: "#ccc",
-  //   borderBottomWidth: 1,
-  // },
-
 
 });
