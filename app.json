@@ -1,5 +1,6 @@
 {
   "expo": {
+    "jsEngine": "hermes",
     "name": "PROJECTNAME",
     "slug": "PROJECTNAME",
     "version": "1.0.0",
@@ -29,5 +30,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
+ 
   }
 }
