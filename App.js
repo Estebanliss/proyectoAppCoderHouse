@@ -7,24 +7,50 @@ import { faCircleCheck, faPenToSquare } from '@fortawesome/free-regular-svg-icon
 
 
 export default function App() {
-
-  const [textItem, setTextItem] = useState("");
+  const [textItem, setTextItem] = useState("")
   const [list, setList] = useState([
-    "Tengo que preparar la clase sobre el recogimiento de israel",
-    "Preparar una torta de chocolate para mi cumpleaños con brillitos",
-    "Tengo que preparar la clase sobre el recogimiento de israel",
-    "Preparar una torta de chocolate para mi cumpleaños con brillitos",
-    "Tengo que preparar la clase sobre el recogimiento de israel",
-    "Preparar una torta de chocolate para mi cumpleaños con brillitos",
-    "Tengo que preparar la clase sobre el recogimiento de israel",
-    "Preparar una torta de chocolate para mi cumpleaños con brillitos",
-    "Tengo que preparar la clase sobre el recogimiento de israel",
-    "Preparar una torta de chocolate para mi cumpleaños con brillitos",
-    "Tengo que preparar la clase sobre el recogimiento de israel",
-    "Preparar una torta de chocolate para mi cumpleaños con brillitos",
-  ]);
-
-  const [itemSelected, setItemSelected] = useState([])
+    {
+      tarea: "Llenar la pileta",
+      valor: 4,
+      id: 1
+    },
+    {
+      tarea: "Levantarse a las 6:30",
+      valor: 3,
+      id: 2
+    },
+    {
+      tarea: "Limpiar Casa",
+      valor: 6,
+      id: 3
+    },
+    {
+      tarea: "Bañarse y alistarse, porque sinó mañana vamos a tener un día terrible",
+      valor: 1,
+      id: 4
+    },
+    {
+      tarea: "Llenar la pileta",
+      valor: 4,
+      id: 5
+    },
+    {
+      tarea: "Levantarse a las 6:30",
+      valor: 3,
+      id: 6
+    },
+    {
+      tarea: "Limpiar Casa",
+      valor: 6,
+      id: 7
+    },
+    {
+      tarea: "Bañarse y alistarse",
+      valor: 1,
+      id: 8
+    },
+  ])
+  const [itemSelected, setItemSelected] = useState("")
   const [modalVisible, setModalVisible] = useState(false)
 
 
@@ -37,36 +63,29 @@ export default function App() {
     setTextItem("")
   }
 
+  const handleModal = ({ item, tarea }) => {
+    setItemSelected(tarea)
+    setModalVisible(true)
+  }
 
-  const showAlert = () =>
-    Alert.alert(
-      'Alert Title',
-      'My Alert Msg',
-      [
-        {
-          text: 'Cancel',
-          onPress: () => Alert.alert('Cancel Pressed'),
-          style: 'cancel',
-        },
-      ],
-    );
-
-
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <View style={styles.renderItemStyle}>
-      <Text style={styles.itemText}>{item}</Text>
+      <Text style={styles.itemText}>{item.tarea}</Text>
       <View style={styles.itemIcon}>
-        <Pressable style={styles.icon} onPress={() => setModalVisible(true)}>
+        <Pressable style={styles.icon} onPress={() => handleModal(item)}>
           <FontAwesomeIcon size={25} color={"gray"} icon={faPenToSquare} />
         </Pressable>
-        <Pressable style={styles.icon} onPress={showAlert}>
+        <Pressable style={styles.icon} onPress={() => console.log(handleModal(item))}>
           <FontAwesomeIcon size={25} color={"gray"} icon={faCircleCheck} />
         </Pressable>
-        <View>
-        </View>
       </View>
     </View>
   )
+
+  const handleDelete = (item) => {
+    setList(prevState => prevState.filter(element => element !== item));
+    setModalVisible(!modalVisible)
+  }
 
   return (
     <View style={styles.container}>
@@ -92,22 +111,26 @@ export default function App() {
         </View>
       </View>
       <Modal
-        animationType="fade"
+        animationType="slide"
         transparent={true}
         visible={modalVisible}
+        itemSelected={itemSelected}
       >
         <View style={styles.containerModal}>
           <View style={styles.modalStyles}>
             <Text>Estás por eliminar la siguiente tarea</Text>
-            <Text>{itemSelected}</Text>
-            <Button title="Eliminar" onPress={() => console.log("Elemento eliminado")}></Button>
+            <Text style={styles.textTareaModal}>{itemSelected}</Text>
+            <View style={styles.buttonsModal}>
+              <Pressable onPress={() => handleDelete(item)}>
+                <Text style={[styles.buttons, styles.buttonNegative]} >Eliminar</Text>
+              </Pressable>
+              <Pressable onPress={() => setModalVisible(false)} >
+                <Text style={[styles.buttons, styles.buttonPositive]}>Cancelar</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
       </Modal>
-
-
-
-
     </View >
   );
 }
@@ -221,7 +244,7 @@ const styles = StyleSheet.create({
   modalStyles: {
     justifyContent: "space-evenly",
     alignItems: "center",
-    height: 200,
+    paddingVertical: 30,
     width: "90%",
     borderRadius: 10,
     backgroundColor: "white",
@@ -233,6 +256,47 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.34,
     shadowRadius: 6.27,
     elevation: 10,
+  },
+
+  buttonsModal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    width: "90%",
+  },
+
+  buttons: {
+    width: 130,
+    height: 50,
+    textAlign: "center",
+    fontWeight: "bold",
+    color: "white",
+    paddingHorizontal: 10,
+    borderRadius: 20,
+    paddingVertical: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 3,
+  },
+
+  buttonPositive: {
+    backgroundColor: "#49AAF3",
+  },
+
+  buttonNegative: {
+    backgroundColor: "#FDBF50",
+  },
+
+  textTareaModal: {
+    fontSize: 20,
+    fontWeight: "800",
+    paddingTop: 15,
+    paddingBottom: 35,
   }
 
 
